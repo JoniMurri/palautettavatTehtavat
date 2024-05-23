@@ -1,0 +1,1 @@
+"T�m� on osa0 tiedosto." 
