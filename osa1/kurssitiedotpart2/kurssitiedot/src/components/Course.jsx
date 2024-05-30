@@ -9,6 +9,7 @@ const Course = ({ course }) => {
    
     return (
       <div>
+        <h1><strong>Web development curriculum </strong></h1>
     <h1>{course.name}</h1>
     <ul>
       {course.parts.map(part => (
