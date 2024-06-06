@@ -6,17 +6,19 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
-const create = async newObject => {
+const create = newObject => {
   const request = axios.post(baseUrl, newObject)
-  const response = await request
-  return response.data
+  return request.then(response => response.data)
 }
 
 const update = async (id, newObject) => {
-  const request = axios.put(`${baseUrl}/${id}`, newObject)
-  const response = await request
-  return response.data
+  const request = axios.put(`${baseUrl}/${id}`, newObject);
+  return request.then(response => response.data);
 }
 
+const poista = (id) => {
+  const request = axios.delete(`${baseUrl}/${id}`);
+  return request.then(response => response.data);
+}
 
-export default { getAll, create, update }
+export default { getAll, create, update, poista }
