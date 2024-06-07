@@ -1,34 +1,3 @@
 {
-  "persons": [
-    {
-      "nimi": "Mary Poppendieck",
-      "numero": "39-23-6423122",
-      "id": "4"
-    },
-    {
-      "id": "ed38",
-      "nimi": "Arto Hellas",
-      "numero": "122122"
-    },
-    {
-      "id": "c2c9",
-      "nimi": "Jere",
-      "numero": "1234412"
-    },
-    {
-      "id": "ab7f",
-      "nimi": "ari",
-      "numero": "212423"
-    },
-    {
-      "id": "5a51",
-      "nimi": "keke ",
-      "numero": "212121"
-    },
-    {
-      "id": "03a0",
-      "nimi": "kerttu 1",
-      "numero": "1212"
-    }
-  ]
+  "persons": []
 }

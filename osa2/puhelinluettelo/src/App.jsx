@@ -48,9 +48,17 @@ const App = () => {
             asetaPersoona(persoona.map(h => h.id !== henkilo.id ? h : paivitettyHenkilo));
             asetaUusiNimi('');
             asetaUusiNumero('');
-            console.log('Updated person:', paivitettyHenkilo);
+            console.log('Updated person:', paivitettyHenkilo)
+            asetaIlmoitus({ message: `Henkilön ${paivitettyHenkilo.nimi} numero päivitettiin`, type: 'success' });
+            setTimeout(() => {
+              asetaIlmoitus({ message: null, type: '' });
+            }, 5000);
           })
           .catch(error => {
+            asetaIlmoitus({ message: `Henkilön ${henkilo.nimi} numeroa ei voitu päivittää`, type: 'error' });
+            setTimeout(() => {
+              asetaIlmoitus({ message: null, type: '' });
+            }, 5000);
             console.error('Error occurred:', error);
           });
       }
@@ -67,11 +75,16 @@ const App = () => {
           asetaPersoona([...persoona, uusiHenkilo]);
           asetaUusiNimi('');
           asetaUusiNumero('');
-          asetaIlmoitus({ message: `Henkilön ${uusiHenkilo.nimi} numero päivitettiin`, type: 'success' });
+          asetaIlmoitus({ message: `Henkilön ${uusiHenkilo.nimi} numero lisättiin`, type: 'success' });
           setTimeout(() => {
             asetaIlmoitus({ message: null, type: '' });
           }, 5000);
-         }) .catch(error => {
+        })
+        .catch(error => {
+          asetaIlmoitus({ message: `Henkilön ${uusiNimi} numeroa ei voitu lisätä`, type: 'error' });
+          setTimeout(() => {
+            asetaIlmoitus({ message: null, type: '' });
+          }, 5000);
           console.error('Error adding person:', error);
         });
     }
@@ -83,11 +96,23 @@ const App = () => {
       henkilo && (henkilo.nimi.toLowerCase().includes(suodatus.toLowerCase()) || henkilo.id.includes(suodatus))
     )
     const poistaHenkilo = (id) => {
+      const henkilo = persoona.find(h => h.id === id); // Löydä poistettava henkilö
         if (window.confirm("Haluatko varmasti poistaa henkilön?")) {
           puhelinServices
             .poista(id)
             .then(() => {
-              asetaPersoona(persoona.filter(henkilo => henkilo.id !== id));
+              asetaPersoona(persoona.filter(h => h.id !== id));
+              asetaIlmoitus({ message: `Henkilön ${henkilo.nimi} numero poistettiin`, type: 'success' });
+              setTimeout(() => {
+                asetaIlmoitus({ message: null, type: '' });
+              }, 5000);
+            })
+            .catch(error => {
+              asetaIlmoitus({ message: `Henkilön ${henkilo.nimi} numeroa ei voitu poistaa`, type: 'error' });
+              setTimeout(() => {
+                asetaIlmoitus({ message: null, type: '' });
+              }, 5000);
+              console.error('Error deleting person:', error);
             });
         }
       };
