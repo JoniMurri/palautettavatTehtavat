@@ -4,6 +4,8 @@ import PersoonaForm from './components/PersoonaForm';
 import Persoonat from './components/Persoonat';
 import puhelinServices from './services/puhelinServices';
 import Notification from './components/Notifications';
+import axios from 'axios';
+
 
 
 const App = () => {
@@ -24,6 +26,8 @@ const App = () => {
       });
   }, []);
 
+
+
   const kasitteleMuutos = (event) => {
     const { name, value } = event.target;
     if (name === 'nimi') {
@@ -37,18 +41,18 @@ const App = () => {
 
   const kasitteleLisays = (event) => {
     event.preventDefault();
+    const uusiHenkilo = { nimi: uusiNimi, numero: uusiNumero }; // Luodaan uusi henkilöobjekti
     const henkilo = persoona.find(henkilo => henkilo.nimi === uusiNimi);
-    if (henkilo) { // Tarkistetaan oikein onko henkilö olemassa
+  
+    if (henkilo) { // Tarkistetaan, onko henkilö jo olemassa
       if (window.confirm(`${uusiNimi} on jo lisätty puhelinluetteloon, haluatko korvata vanhan numeron uudella?`)) {
-        const paivitettyHenkilo = { ...henkilo, numero: uusiNumero }; // Päivitetty henkilö oikeilla tiedoilla
+        // Päivitetään henkilön tiedot
         puhelinServices
-          .update(henkilo.id, paivitettyHenkilo)
+          .update(henkilo.id, uusiHenkilo)
           .then(paivitettyHenkilo => {
-            
             asetaPersoona(persoona.map(h => h.id !== henkilo.id ? h : paivitettyHenkilo));
             asetaUusiNimi('');
             asetaUusiNumero('');
-            console.log('Updated person:', paivitettyHenkilo)
             asetaIlmoitus({ message: `Henkilön ${paivitettyHenkilo.nimi} numero päivitettiin`, type: 'success' });
             setTimeout(() => {
               asetaIlmoitus({ message: null, type: '' });
@@ -59,19 +63,17 @@ const App = () => {
             setTimeout(() => {
               asetaIlmoitus({ message: null, type: '' });
             }, 5000);
-            console.error('Error occurred:', error);
+            console.error('Error updating person:', error);
           });
       }
     } else {
-      const uusiHenkilo = { nimi: uusiNimi, numero: uusiNumero };
-      console.log(uusiHenkilo)
+      // Lisätään uusi henkilö
       puhelinServices.create(uusiHenkilo)
-      .then(uusiHenkilo => {
-        // Tarkistetaan, että uusi henkilö saa ID:n palvelimelta
-        if (!uusiHenkilo.id) {
-          console.error('Uudella henkilöllä ei ole ID:tä:', uusiHenkilo);
-          return;
-        }
+        .then(uusiHenkilo => {
+          if (!uusiHenkilo.id) {
+            console.error('Uudella henkilöllä ei ole ID:tä:', uusiHenkilo);
+            return;
+          }
           asetaPersoona([...persoona, uusiHenkilo]);
           asetaUusiNimi('');
           asetaUusiNumero('');
@@ -86,10 +88,9 @@ const App = () => {
             asetaIlmoitus({ message: null, type: '' });
           }, 5000);
           console.error('Error adding person:', error);
-        });
+        })
     }
-  };
-
+  }
   const suodatetutHenkilot = naytaKaikki
   ? persoona
   : persoona.filter(henkilo =>

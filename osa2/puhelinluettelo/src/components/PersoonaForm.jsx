@@ -1,6 +1,7 @@
 import React from "react";
 
 const PersoonaForm = ({ uusiNimi, uusiNumero, kasitteleMuutos, kasitteleLisays }) => {
+  
   return (
     <form onSubmit={kasitteleLisays}>
       <div>
