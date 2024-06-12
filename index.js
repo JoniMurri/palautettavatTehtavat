@@ -83,7 +83,7 @@ app.get('/info', (request, response) => {
   });
   
 
-const PORT = 3001;
+const PORT = process.env.Port || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 })
