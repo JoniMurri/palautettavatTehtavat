@@ -1,1 +1,0 @@
-https://puhelinluettelo-dmqa.onrender.com/api/persons
