@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoniMurri/palautettavatTehtavat.git"
+  },
+  "author": "Joni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoniMurri/palautettavatTehtavat/issues"
+  },
+  "homepage": "https://github.com/JoniMurri/palautettavatTehtavat#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
