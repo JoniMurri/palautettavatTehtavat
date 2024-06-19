@@ -1,6 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+require('dotenv').config();
+
 const app = express();
 
 
@@ -94,7 +96,7 @@ const errorHandler = (error, req, res, next) => {
 app.use(errorHandler);
 
 // Start the server
-const PORT = 3001;
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  console.log(`Server running on port ${PORT}`)
+})
