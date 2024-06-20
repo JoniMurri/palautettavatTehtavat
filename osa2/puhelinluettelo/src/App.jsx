@@ -12,7 +12,7 @@ const App = () => {
   const [newPhoneNumber, setNewPhoneNumber] = useState('');
   const [filter, setFilter] = useState('');
   const [notification, setNotification] = useState(null);
-
+ 
   useEffect(() => {
     services
       .getAll()
@@ -35,8 +35,8 @@ const App = () => {
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   }
-  const showNotification = (message, isError = false) => {
-    setNotification(message, isError);
+  const showNotification = (text, isError = false) => {
+    setNotification(text, isError);
 
     setTimeout(() => {
       setNotification(null);
@@ -65,9 +65,9 @@ const App = () => {
             showNotification(`Updated ${returnedPerson.name}'s number successfully.`);
           })
           .catch(error => {
-            console.error('Error updating person:', error.message || error);
+            console.error('Error updating person:', error.response?.data?.error || error.message || error);
             alert('Failed to update person. Please check the server and network settings.');
-            showNotification('Failed to update person. Please check the server and network settings.',true);
+            showNotification(`Failed to update person: ${error.response.data.error || 'Check server and network settings.'}`,true);
           })
       }
     } else {
@@ -81,9 +81,8 @@ const App = () => {
           showNotification(`Added` + returnedPerson.name + `s number successfully.`);
       })
         .catch(error => {
-          console.error('Error adding person:', error.message || error);
-          alert('Failed to add person. Please check the server and network settings.');
-          showNotification('Failed to add person. Please check the server and network settings.',true);
+          console.error('Error adding person:', error.response?.data?.error || error.message || error);
+          showNotification(`Failed to add person: ${error.response?.data?.error || 'Check server and network settings.'}`, true);
         })
     }
   }
@@ -96,7 +95,7 @@ const App = () => {
       services.remove(id)
         .then(() => {
           setPersons(persons.filter(person => person.id !== id));
-          showNotification(`Delete person` + name + `successfully`)
+          showNotification(`Deleted person` + " " + name + " " + `successfully`)
         })
         .catch(error => {
           console.error('Error deleting person:', error.message || error);
@@ -109,7 +108,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={notification} isError={notification?.isError} />
+      <Notification message={notification} />
       <h2>Puhelinluettelo</h2>
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h3>Lisää uusi</h3>

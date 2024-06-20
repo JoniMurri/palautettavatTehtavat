@@ -7,7 +7,7 @@
     "dev": "nodemon index.js",
     "build": "echo 'Build script placeholder'",
     "test": "echo \"Error: no test specified\" && exit 1",
-     "build:ui": "rm -rf dist && cd ../frontend && npm run build && cp -r dist ../backend",
+    "build:ui": "rm -rf dist && cd ../frontend && npm run build && cp -r dist ../backend",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "repository": {
@@ -28,14 +28,14 @@
   "homepage": "https://github.com/JoniMurri/palautettavatTehtavat#readme",
   "description": "",
   "dependencies": {
-    "express": "^4.19.2",
-    "mongoose": "^5.10.9",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.6.0",
+    "express": "^4.19.2",
+    "mongodb": "^6.7.0",
+    "mongoose": "^5.10.9",
+    "path": "^0.12.7"
   },
-     "devDependencies": {
+  "devDependencies": {
     "nodemon": "^3.1.3"
   }
-  
-  
 }
