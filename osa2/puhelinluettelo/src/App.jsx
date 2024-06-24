@@ -36,8 +36,8 @@ const App = () => {
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   }
-  const showNotification = (text, isError = false) => {
-    setNotification(text, isError);
+  const showNotification = (message,isError = false) => {
+    setNotification(message, isError);
 
     setTimeout(() => {
       setNotification(null);
@@ -63,7 +63,7 @@ const App = () => {
             ));
             setNewName('');
             setNewPhoneNumber('');
-            showNotification(`Updated ${returnedPerson.name}'s number successfully.`);
+            showNotification(`Updated ${returnedPerson.name}'s number successfully.`, false);
           })
           .catch(error => {
             console.error('Error updating person:', error.response?.data?.error || error.message || error);
@@ -79,7 +79,7 @@ const App = () => {
           setPersons(persons.concat(returnedPerson));
           setNewName('');
           setNewPhoneNumber('');
-          showNotification(`Added` + returnedPerson.name + `s number successfully.`);
+          showNotification(`Added` + returnedPerson.name + `s number successfully.`, false);
       })
         .catch(error => {
           console.error('Error adding person:', error.response?.data?.error || error.message || error);
@@ -96,7 +96,7 @@ const App = () => {
       services.remove(id)
         .then(() => {
           setPersons(persons.filter(person => person.id !== id));
-          showNotification(`Deleted person` + " " + name + " " + `successfully`)
+          showNotification(`Deleted person` + " " + name + " " + `successfully`, false)
         })
         .catch(error => {
           console.error('Error deleting person:', error.message || error);

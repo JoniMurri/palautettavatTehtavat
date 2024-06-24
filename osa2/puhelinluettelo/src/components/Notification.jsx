@@ -6,12 +6,14 @@ const Notification = ({ message, isError}) => {
   }
   const notificationStyle = {
     color: 'white',
-    backgroundColor: isError ? 'red' : 'green',
-    padding: '10px',
-    marginBottom: '10px',
-    borderRadius: '5px',
-    textAlign: 'center',
-    fontWeight: 'bold',
+  backgroundColor: isError ? 'red' : 'green',
+  padding: '15px 20px',
+  marginBottom: '20px',
+  borderRadius: '8px',
+  textAlign: 'center',
+  fontWeight: 'bold',
+  fontSize: '1.2em',
+  boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
   }
 
   return (
