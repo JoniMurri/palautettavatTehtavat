@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
@@ -108,7 +109,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={notification} />
+      <Notification message={notification?.text} isError={notification?.isError} />
       <h2>Puhelinluettelo</h2>
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h3>Lisää uusi</h3>

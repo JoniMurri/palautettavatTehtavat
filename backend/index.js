@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
-const path = require('path');
 require('dotenv').config();
 
 const Person = require('./models/person'); // Person-mallin importtaus
