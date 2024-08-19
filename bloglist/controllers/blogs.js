@@ -82,6 +82,31 @@ blogsRouter.delete('/:id', async (request, response) => {
   }
 })
 
+blogsRouter.put('/:id', async (request, response) => {
+  console.log('PUT request to /api/blogs/:id')
+  console.log('ID:', request.params.id)
+  console.log('Request body:', request.body)
+  const { id } = request.params
+  const { title, author, url, likes, user } = request.body
+
+
+  const updatedBlog = {
+    title,
+    author,
+    url,
+    likes,
+    user,
+  };
+
+  try {
+    const result = await Blog.findByIdAndUpdate(id, updatedBlog, { new: true });
+    response.json(result);
+  } catch (error) {
+    response.status(400).json({ error: 'Failed to update blog' });
+  }
+
+})
+
 
 
 module.exports = blogsRouter;
